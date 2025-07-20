@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AdiozShop Login</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #89f7fe, #66a6ff);
+      margin: 0;
+      padding: 0;
+    }
+
+    .login-container, .shop-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      margin-top: 50px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      background: #0077ff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .pet-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .pet {
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .info, .quest, .giveaway {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .giveaway input {
+      margin-top: 10px;
+    }
+
+    .tiktok-button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 24px;
+      background: #000;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      width: fit-content;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container" id="loginBox">
+  <h2>🎮 Welcome to AdiozShop</h2>
+  <input type="text" id="username" placeholder="Enter username">
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="login()">Sign In</button>
+</div>
+
+<div class="shop-container hidden" id="shopBox">
+  <h2>🐾 GAG Pet Shop</h2>
+
+  <div class="pet-list" id="petList"></div>
+
+  <div class="info" id="petInfo"></div>
+
+  <div class="quest">
+    <h3>🎯 Daily Quest</h3>
+    <p id="questText">Click below to get a quest</p>
+    <button onclick="generateQuest()">Get Quest</button>
+  </div>
+
+  <div class="giveaway">
+    <h3>🎁 Join the Giveaway</h3>
+    <p>Enter your TikTok username to join!</p>
+    <input type="text" id="tiktokUser" placeholder="@yourusername">
+    <button onclick="submitGiveaway()">Join the Giveaway</button>
+    <p id="giveawayStatus"></p>
+  </div>
+
+  <!-- TikTok chat button -->
+  <a class="tiktok-button" href="https://www.tiktok.com/@adiozshop" target="_blank">
+    💬 Chat with Us on TikTok
+  </a>
+</div>
+
+<script>
+  const pets = [
+    { name: "774T", price: 100 },
+    { name: "Cooked Owl", price: 100 },
+    { name: "Blood Owl", price: 100 },
+    { name: "Night Owl", price: 100 },
+    { name: "Moon Cat", price: 100 },
+    { name: "Moth", price: 100 },
+    { name: "Capybara", price: 150 },
+    { name: "Red Fox", price: 200 },
+    { name: "Chicken Zombie", price: 200 },
+    { name: "Queen Bee", price: 350 },
+    { name: "Raccoon", price: 900 },
+    { name: "Dragonfly", price: 600 },
+    { name: "Disco Bee", price: 850 },
+    { name: "Butterfly", price: 650 },
+    { name: "Mimic Octopus", price: 450 },
+    { name: "Fenec Fox", price: 1200 },
+    { name: "Trex", price: 750 },
+    { name: "Brono", price: 300 },
+  ];
+
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (user && pass) {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("shopBox").classList.remove("hidden");
+      loadPets();
+    } else {
+      alert("Please enter username and password.");
+    }
+  }
+
+  function loadPets() {
+    const list = document.getElementById("petList");
+    pets.forEach((pet) => {
+      const div = document.createElement("div");
+      div.className = "pet";
+      div.innerHTML = `
+        <strong>${pet.name}</strong><br>
+        Rs ${pet.price}
+      `;
+      list.appendChild(div);
+    });
+  }
+
+  function generateQuest() {
+    const names = ["Ronaldo", "Luffy", "MrBeast", "Avengers", "Cat memes", "Taylor Swift", "Spinosaurus"];
+    const random = names[Math.floor(Math.random() * names.length)];
+    document.getElementById("questText").innerText = `Your Quest: Search "${random}" on the web 🌐`;
+  }
+
+  function submitGiveaway() {
+    const tiktok = document.getElementById("tiktokUser").value;
+    if (tiktok.startsWith("@")) {
+      document.getElementById("giveawayStatus").innerText = `✅ Thanks ${tiktok}, you're in the giveaway!`;
+    } else {
+      alert("TikTok username must start with @");
+    }
+  }
+</script>
+
+</body>
+</html>
